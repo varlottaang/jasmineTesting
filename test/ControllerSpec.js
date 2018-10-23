@@ -59,14 +59,18 @@ describe('controller', function () {
 	});
 
     it('should show entries on start-up', function () {
-        // TODO: write test
+		// TODO: write test
+		
+		// Define todo and set up the model
         var todo = {title: 'my todo'};
         var todo2 = {title: 'my todo2'};
         var todo3 = {title: 'my todo3'};
         setUpModel([todo, todo2, todo3 ]);
 
+		// Init view 
         subject.setView('');
 
+		// Expect 
         expect(model.read).toHaveBeenCalled();
 
         expect(view.render).toHaveBeenCalledWith('showEntries', [
@@ -97,13 +101,16 @@ describe('controller', function () {
 		});
 
         it('should show active entries', function () {
-            // TODO: write test
+			// TODO: write test
+			// set up completed tasks
             var todoArray = [
                 {title: 'my todo', completed: true},
                 {title: 'my todo2', completed: false},
                 {title: 'my todo3', completed: true}
             ];
-            setUpModel(todoArray);
+			setUpModel(todoArray);
+			
+			// init active view
             subject.setView('#/active');
 
             expect(view.render).toHaveBeenCalledWith( 'toggleAll', Object({ checked: false }));
@@ -117,7 +124,8 @@ describe('controller', function () {
                 {title: 'my todo3', completed: true}
             ];
             setUpModel(todoArray);
-            subject.setView('');
+			
+			subject.setView('');
 
             expect(view.render).toHaveBeenCalledWith('clearCompletedButton', Object({ completed: 2, visible: true }) );
         });
@@ -166,11 +174,13 @@ describe('controller', function () {
 	});
 
     it('should highlight "All" filter by default', function () {
-        // TODO: write test
-        var todo = {title: 'my todo'};
+		// TODO: write test
+		
+		var todo = {title: 'my todo'};
+		/** Set up model with an empty arrays */
         setUpModel([todo]);
 
-        subject.setView('#/');
+        subject.setView('#/active');
         expect(view.render).toHaveBeenCalledWith('contentBlockVisibility', Object({ visible: true }));
     });
 
@@ -181,7 +191,9 @@ describe('controller', function () {
             {id: 43, title: 'my todo2', completed: false},
             {id: 44, title: 'my todo3', completed: true},
             {id: 45, title: 'my todo4', completed: false}
-        ];
+		];
+		/** Set up model with an empty arrays */
+
         setUpModel([todos]);
 
         subject.setView('#/active');
